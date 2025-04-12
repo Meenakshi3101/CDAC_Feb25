@@ -1,0 +1,292 @@
+
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| dbt                |
+| information_schema |
+| performance_schema |
++--------------------+
+3 rows in set (0.13 sec)
+
+mysql> use dbt;
+Database changed
+
+mysql> create table SEMP (
+    -> EMPNO CHAR(4),
+    -> EMPNAME CHAR(20),
+    -> BASIC FLOAT,
+    -> DEPTNO CHAR(2),
+    -> DEPTHEAD CHAR(4)
+    -> );
+Query OK, 0 rows affected (0.18 sec)
+
+mysql> CREATE TABLE SDEPT (
+    -> DEPTNO CHAR(2),
+    -> DEPTNAME CHAR(15)
+    -> );
+Query OK, 0 rows affected (0.04 sec)
+
+mysql> INSERT INTO SDEPT VALUES
+    -> (10, 'Development');
+Query OK, 1 row affected (0.04 sec)
+
+mysql> INSERT INTO SDEPT VALUES
+    -> (20, 'Training');
+Query OK, 1 row affected (0.02 sec)
+
+mysql> INSERT INTO SEMP VALUES
+    -> ('0001', 'SUNIL', 6000, '10', NULL),
+    -> ('0002', 'HIREN', 8000, '20', NULL),
+    -> ('0003', 'ALI', 4000, '10', '0001'),
+    -> ('0004', 'GEORGE', 6000, '20', '0002');
+Query OK, 4 rows affected (0.01 sec)
+Records: 4  Duplicates: 0  Warnings: 0
+
+
+
+mysql> CREATE TABLE S (
+    -> `S#` CHAR(2),
+    -> Sname CHAR(20),
+    -> Status INT,
+    -> City CHAR(15)
+    -> );
+Query OK, 0 rows affected (0.04 sec)
+
+
+mysql> CREATE TABLE P (
+    ->     `P#` CHAR(2),
+    ->     Pname CHAR(20),
+    ->     Color CHAR(10),
+    ->     Weight FLOAT,
+    ->     City CHAR(15)
+    -> );
+Query OK, 0 rows affected (0.07 sec)
+
+
+mysql> CREATE TABLE J (
+    -> `J#` CHAR(4),
+    -> Jname CHAR(20),
+    ->     City CHAR(15)
+    -> );
+Query OK, 0 rows affected (0.10 sec)
+
+
+mysql> CREATE TABLE SPJ (
+    -> `S#` VARCHAR(20),
+    -> `P#` VARCHAR(20),
+    -> `J#` VARCHAR(20),
+    -> QTY INT
+    -> );
+Query OK, 0 rows affected (0.06 sec)
+
+
+mysql> INSERT INTO S VALUES
+    -> ('S1', 'RIO1', 10, 'London'),
+    -> ('S2', 'RIO2', 20, 'Paris'),
+    -> ('S3', 'RIO3', 30, 'Athens');
+Query OK, 3 rows affected (0.03 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+
+mysql> INSERT INTO P VALUES
+    -> ('P1', 'Circle', 'Yellow', 8.0, 'Athens'),
+    -> ('P2', 'Triangle', 'Red', 5.0, 'London'),
+    -> ('P3', 'Square', 'Green', 14.7, 'Paris'),
+    -> ('P4', 'Rectangle', 'Pink', 13.7, 'New York');
+Query OK, 4 rows affected (0.05 sec)
+Records: 4  Duplicates: 0  Warnings: 0
+
+mysql> INSERT INTO J VALUES
+    -> ('J1', 'viva1', 'Paris'),
+    -> ('J2', 'viva2', 'Athens'),
+    -> ('J3', 'viva3', 'London'),
+    -> ('J4', 'viva4', 'Athens');
+Query OK, 4 rows affected (0.04 sec)
+Records: 4  Duplicates: 0  Warnings: 0
+
+
+mysql> INSERT INTO SPJ VALUES
+    -> ('R1', 'E1', 'C1', 34),
+    -> ('R2', 'E2', 'C2', 77),
+    -> ('R4', 'E5', 'C8', 770),
+    -> ('R9', 'E9', 'C3', 90);
+Query OK, 4 rows affected (0.04 sec)
+Records: 4  Duplicates: 0  Warnings: 0
+
+--------------------------------------------------------------------------------
+5.
+mysql> SELECT * FROM S;
++------+-------+--------+--------+
+| S#   | Sname | Status | City   |
++------+-------+--------+--------+
+| S1   | RIO1  |     10 | London |
+| S2   | RIO2  |     20 | Paris  |
+| S3   | RIO3  |     30 | Athens |
++------+-------+--------+--------+
+3 rows in set (0.00 sec)
+
+
+----------------------------------------------------------------------------
+6.
+mysql> SELECT `S#`, SName FROM S;
++------+-------+
+| S#   | SName |
++------+-------+
+| S1   | RIO1  |
+| S2   | RIO2  |
+| S3   | RIO3  |
++------+-------+
+3 rows in set (0.00 sec)
+
+---------------------------------------------------------------------------
+7.
+mysql> SELECT PName, Color FROM P WHERE City = 'London';
++----------+-------+
+| PName    | Color |
++----------+-------+
+| Triangle | Red   |
++----------+-------+
+1 row in set (0.00 sec)
+
+---------------------------------------------------------------------------
+8.
+mysql> SELECT * FROM S WHERE CITY = 'London';
++------+-------+--------+--------+
+| S#   | Sname | Status | City   |
++------+-------+--------+--------+
+| S1   | RIO1  |     10 | London |
++------+-------+--------+--------+
+1 row in set (0.00 sec)
+
+----------------------------------------------------------------------------
+9.
+mysql> SELECT *
+    -> FROM S
+    -> WHERE CITY IN ('Paris', 'Athens');
++------+-------+--------+--------+
+| S#   | Sname | Status | City   |
++------+-------+--------+--------+
+| S2   | RIO2  |     20 | Paris  |
+| S3   | RIO3  |     30 | Athens |
++------+-------+--------+--------+
+2 rows in set (0.00 sec)
+
+--------------------------------------------------------------------------
+10.
+mysql> SELECT * FROM J WHERE City = 'Athens';
++------+-------+--------+
+| J#   | Jname | City   |
++------+-------+--------+
+| J2   | viva2 | Athens |
+| J4   | viva4 | Athens |
++------+-------+--------+
+2 rows in set (0.00 sec)
+
+
+----------------------------------------------------------------------------
+11.
+
+mysql> SELECT PName FROM P WHERE WEIGHT BETWEEN 12 AND 14;
++-----------+
+| PName     |
++-----------+
+| Rectangle |
++-----------+
+1 row in set (0.03 sec)
+
+-----------------------------------------------------------------------------
+12.
+mysql> SELECT * FROM S WHERE Status >= 20;
+
++------+-------+--------+--------+
+| S#   | Sname | Status | City   |
++------+-------+--------+--------+
+| S2   | RIO2  |     20 | Paris  |
+| S3   | RIO3  |     30 | Athens |
++------+-------+--------+--------+
+2 rows in set (0.03 sec)
+
+------------------------------------------------------------------------------
+13.
+mysql> SELECT * FROM S WHERE CITY <> 'London';
++------+-------+--------+--------+
+| S#   | Sname | Status | City   |
++------+-------+--------+--------+
+| S2   | RIO2  |     20 | Paris  |
+| S3   | RIO3  |     30 | Athens |
++------+-------+--------+--------+
+2 rows in set (0.00 sec)
+
+or
+
+mysql> SELECT * FROM S WHERE CITY  != 'London';
++------+-------+--------+--------+
+| S#   | Sname | Status | City   |
++------+-------+--------+--------+
+| S2   | RIO2  |     20 | Paris  |
+| S3   | RIO3  |     30 | Athens |
++------+-------+--------+--------+
+2 rows in set (0.00 sec)
+
+-----------------------------------------------------------------------------
+14.
+mysql> SELECT DISTINCT CITY FROM S;
++--------+
+| CITY   |
++--------+
+| London |
+| Paris  |
+| Athens |
++--------+
+3 rows in set (0.04 sec)
+
+-----------------------------------------------------------------------------
+15.
+mysql> SELECT
+    -> PName,
+    -> WEIGHT  AS GRAMS,
+    -> WEIGHT * 1000 AS MILLIGRAMS,
+    -> WEIGHT / 1000 AS KILOGRAMS
+    -> FROM P;
++-----------+-------+--------------------+----------------------+
+| PName     | GRAMS | MILLIGRAMS         | KILOGRAMS            |
++-----------+-------+--------------------+----------------------+
+| Circle    |     8 |               8000 |                0.008 |
+| Triangle  |     5 |               5000 |                0.005 |
+| Square    |  14.7 | 14699.999809265137 | 0.014699999809265136 |
+| Rectangle |  13.7 | 13699.999809265137 | 0.013699999809265137 |
++-----------+-------+--------------------+----------------------+
+4 rows in set (0.04 sec)
+
+
+---------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
