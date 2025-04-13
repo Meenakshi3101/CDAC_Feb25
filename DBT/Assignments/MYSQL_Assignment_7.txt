@@ -1,0 +1,111 @@
+              Assignment –7
+
+Summarizing Data with Aggregate Functions.
+
+
+ 1) Write a query that counts all orders for October 3.
+ 
+mysql> SELECT COUNT(*)
+    -> FROM ORDERS
+    -> WHERE ODate = '1990-10-03';
++----------+
+| COUNT(*) |
++----------+
+|        5 |
++----------+
+1 row in set (0.08 sec)
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+2) Write a query that counts the number of different non-NULL city values in the 
+Customers table.
+
+mysql> SELECT COUNT(DISTINCT City)
+    -> from customers
+    -> where City IS NOT NULL;
++----------------------+
+| COUNT(DISTINCT City) |
++----------------------+
+|                    4 |
++----------------------+
+1 row in set (0.03 sec) 
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+3) Write a query that selects each customer’s smallest order. 
+
+mysql> SELECT Cnum, MIN(Amt)
+    -> FROM ORDERS
+    -> GROUP BY Cnum;
++------+----------+
+| Cnum | MIN(Amt) |
++------+----------+
+| 2008 |    18.69 |
+| 2001 |   767.19 |
+| 2007 |  1900.10 |
+| 2003 |  5160.45 |
+| 2002 |  1713.23 |
+| 2004 |    75.75 |
+| 2006 |  4723.00 |
++------+----------+
+7 rows in set (0.01 sec)
+
+
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+4) Write a query that selects the first customer, in alphabetical order, whose name 
+begins with G.
+
+mysql> SELECT *
+    -> FROM CUSTOMERS
+    -> WHERE Cname LIKE 'G%'
+    -> ORDER BY Cname
+    -> LIMIT 1;
++------+----------+------+--------+------+
+| Cnum | Cname    | City | Rating | Snum |
++------+----------+------+--------+------+
+| 2002 | Giovanni | Rome |    200 | 1003 |
++------+----------+------+--------+------+
+1 row in set (0.04 sec)
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ 
+5) Write a query that selects the highest rating in each city. 
+
+mysql> SELECT City, MAX(Rating)
+    -> FROM CUSTOMERS
+    -> GROUP BY City;
++----------+-------------+
+| City     | MAX(Rating) |
++----------+-------------+
+| London   |         100 |
+| Rome     |         200 |
+| San Jose |         300 |
+| Berlin   |         300 |
++----------+-------------+
+4 rows in set (0.00 sec)
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+6) Write a query that counts the number of salespeople registering orders for each 
+day. (If a salesperson has more than one order on a given day, he or she should be 
+counted only once.). 
+
+
+mysql> SELECT ODate, COUNT(DISTINCT Snum)
+    -> FROM ORDERS
+    -> GROUP BY ODate;
++------------+----------------------+
+| ODate      | COUNT(DISTINCT Snum) |
++------------+----------------------+
+| 1990-10-03 |                    4 |
+| 1990-10-04 |                    2 |
+| 1990-10-05 |                    1 |
+| 1990-10-06 |                    2 |
++------------+----------------------+
+4 rows in set (0.02 sec)
