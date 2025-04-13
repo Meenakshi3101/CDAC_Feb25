@@ -1,0 +1,96 @@
+             SQL Exercise 2  
+
+ 
+1. Display the Supplier table in the descending order of CITY. 
+
+mysql> SELECT *
+    -> FROM S
+    -> ORDER BY City DESC;
++------+-------+--------+--------+
+| S#   | Sname | Status | City   |
++------+-------+--------+--------+
+| S2   | RIO2  |     20 | Paris  |
+| S1   | RIO1  |     10 | London |
+| S3   | RIO3  |     30 | Athens |
++------+-------+--------+--------+
+3 rows in set (0.01 sec)
+
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------
+  
+2. Display the Part Table in the ascending order of CITY and within the city in the ascending order of Part names. 
+
+mysql> SELECT *
+    -> FROM P
+    -> ORDER BY City ASC, PName ASC;
++------+-----------+--------+--------+----------+
+| P#   | Pname     | Color  | Weight | City     |
++------+-----------+--------+--------+----------+
+| P1   | Circle    | Yellow |      8 | Athens   |
+| P2   | Triangle  | Red    |      5 | London   |
+| P4   | Rectangle | Pink   |   13.7 | New York |
+| P3   | Square    | Green  |   14.7 | Paris    |
++------+-----------+--------+--------+----------+
+4 rows in set (0.03 sec)
+
+
+--
+----------------------------------------------------------------------------------------------------------------------------------------------------------------
+  
+3. Display all the Suppliers with a status between 10 and 20. 
+
+mysql> SELECT * FROM S WHERE STATUS BETWEEN 10 AND 20;
++------+-------+--------+--------+
+| S#   | Sname | Status | City   |
++------+-------+--------+--------+
+| S1   | RIO1  |     10 | London |
+| S2   | RIO2  |     20 | Paris  |
++------+-------+--------+--------+
+2 rows in set (0.01 sec)
+
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------
+  
+4. Display all the Parts and their Weight, which are not in the range of 10 and 15.
+
+mysql> SELECT PName, Weight FROM P WHERE Weight NOT Between 10 AND 15;
++----------+--------+
+| PName    | Weight |
++----------+--------+
+| Circle   |      8 |
+| Triangle |      5 |
++----------+--------+
+2 rows in set (0.00 sec)
+
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------
+   
+5. Display all the Part names starting with the letter ‘S’.  
+ 
+mysql> SELECT PName FROM P
+    -> WHERE PName LIKE 'S%';
++--------+
+| PName  |
++--------+
+| Square |
++--------+
+1 row in set (0.04 sec)
+
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+6. Display all the Suppliers, belonging to cities starting with the letter ‘L’. 
+ 
+mysql> SELECT * FROM S
+    -> WHERE City LIKE '%L';
+Empty set (0.00 sec)
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+7. Display all the Projects, with the third letter in JNAME as ‘n’.
+
+mysql> SELECT * FROM J
+    -> WHERE JName LIKE '__n%';
+Empty set (0.00 sec)
